@@ -11,7 +11,7 @@ pipeline {
   }
 
   agent {
-    kubernetes {
+    docker {
       label 'sample-app'
       defaultContainer 'jnlp'
       yaml """
