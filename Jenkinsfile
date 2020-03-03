@@ -11,7 +11,7 @@ pipeline {
   }
 
   agent {
-    jnlp {
+    any {
       label 'sample-app'
       defaultContainer 'jnlp'
       yaml """
