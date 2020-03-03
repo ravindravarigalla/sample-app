@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    PROJECT = "REPLACE_WITH_YOUR_PROJECT_ID"
+    PROJECT = "gcp-lab-240205"
     APP_NAME = "gceme"
     FE_SVC_NAME = "${APP_NAME}-frontend"
     CLUSTER = "jenkins-cd"
