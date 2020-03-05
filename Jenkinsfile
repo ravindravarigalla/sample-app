@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    PROJECT = "gcp-lab-240205"
+    PROJECT = "halodoc-pilot"
     APP_NAME = "gceme"
     FE_SVC_NAME = "${APP_NAME}-frontend"
     CLUSTER = "jenkins-cd"
