@@ -5,13 +5,13 @@ pipeline {
     APP_NAME = "gceme"
     FE_SVC_NAME = "${APP_NAME}-frontend"
     CLUSTER = "jenkins-cd"
-    CLUSTER_ZONE = "gke-cluster-private"
+    CLUSTER_ZONE = "us-east1-d"
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
     JENKINS_CRED = "${PROJECT}"
   }
 
   agent {
-    any {
+    kubernetes {
       label 'sample-app'
       defaultContainer 'jnlp'
       yaml """
@@ -30,7 +30,7 @@ spec:
     - cat
     tty: true
   - name: gcloud
-    image: gcr.io/cloud-builders/gcloud:latest
+    image: gcr.io/cloud-builders/gcloud
     command:
     - cat
     tty: true
@@ -43,6 +43,17 @@ spec:
 }
   }
   stages {
+    stage('Test') {
+      steps {
+        container('golang') {
+          sh """
+            ln -s `pwd` /go/src/sample-app
+            cd /go/src/sample-app
+            go test
+          """
+        }
+      }
+    }
     stage('Build and push image with Container Builder') {
       steps {
         container('gcloud') {
