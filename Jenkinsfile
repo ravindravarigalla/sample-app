@@ -58,19 +58,7 @@ spec:
       steps {
         container('gcloud') {
           sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
-        }
-      }
-    }
-    stage('Deploy Canary') {
-      // Canary branch
-      when { branch 'canary' }
-      steps {
-        container('kubectl') {
-          // Change deployed image in canary to the one we just built
-          sh("sed -i.bak 's#gcr.io/cloud-solutions-images/gceme:1.0.0#${IMAGE_TAG}#' ./k8s/canary/*.yaml")
-          step([$class: 'KubernetesEngineBuilder',namespace:'production', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/services', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
-          step([$class: 'KubernetesEngineBuilder',namespace:'production', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/canary', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
-          sh("echo http://`kubectl --namespace=production get service/${FE_SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${FE_SVC_NAME}")
+       > ${FE_SVC_NAME}")
         }
       }
     }
@@ -89,10 +77,6 @@ spec:
     }
     stage('Deploy Dev') {
       // Developer Branches
-      when {
-        not { branch 'master' }
-        not { branch 'canary' }
-      }
       steps {
         container('kubectl') {
           // Create namespace if it doesn't exist
