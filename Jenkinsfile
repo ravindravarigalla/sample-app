@@ -58,7 +58,6 @@ spec:
       steps {
         container('gcloud') {
           sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
-       > ${FE_SVC_NAME}")
         }
       }
     }
