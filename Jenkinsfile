@@ -68,6 +68,7 @@ spec:
           sh """
           helm ls
           gcloud container clusters get-credentials apps-gke-cluster --zone us-central1-c --project halodoc-pilot
+          kubectl get pods
           
           """ 
         }
