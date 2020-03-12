@@ -1,11 +1,11 @@
 pipeline {
 
   environment {
-    PROJECT = "halodoc-pilot"
+    PROJECT = "halodoc-fisclouds"
     APP_NAME = "gceme"
     FE_SVC_NAME = "${APP_NAME}-frontend"
-    CLUSTER = "private-cicd"
-    CLUSTER_ZONE = "asia-southeast1-a"
+    CLUSTER = "gke-cicd"
+    CLUSTER_ZONE = "us-central1-c"
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
     JENKINS_CRED = "${PROJECT}"
   }
@@ -67,7 +67,7 @@ spec:
         container('helm') {
           sh """
           helm ls
-          gcloud container clusters get-credentials apps-gke-cluster --zone us-central1-c --project halodoc-pilot
+          gcloud container clusters get-credentials gke-apps --zone us-central1-c --project halodoc-fisclouds
           kubectl get pods
           
           """ 
