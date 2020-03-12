@@ -69,7 +69,11 @@ spec:
           helm ls
           gcloud container clusters get-credentials gke-apps --zone us-central1-c --project halodoc-fisclouds
           kubectl get pods
-          """ 
+          helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+          helm repo update
+           helm install mysql stable/mysql 
+           helm ls
+            """ 
         }
       }
     }
