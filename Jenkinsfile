@@ -69,7 +69,6 @@ spec:
           helm ls
           gcloud container clusters get-credentials gke-apps --zone us-central1-c --project halodoc-fisclouds
           kubectl get pods
-          
           """ 
         }
       }
