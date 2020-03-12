@@ -35,7 +35,7 @@ spec:
     - cat
     tty: true
   - name: helm
-    image: asia.gcr.io/halodoc-pilot/helm3
+    image: us.gcr.io/halodoc-fisclouds/helm3
     command:
     - cat
     tty: true
